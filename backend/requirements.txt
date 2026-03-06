@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+argon2-cffi
+python-jose
+python-multipart
+python-dotenv
+email-validator
