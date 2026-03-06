@@ -3,6 +3,7 @@ uvicorn
 sqlalchemy
 psycopg2-binary
 argon2-cffi
+passlib
 python-jose
 python-multipart
 python-dotenv
