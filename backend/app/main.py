@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from app.db.database import engine
 from app.db import models
 from app.routes import auth_routes
+from app.inventory import routes as inventory_routes
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -11,6 +12,7 @@ app = FastAPI(
 )
 
 app.include_router(auth_routes.router)
+app.include_router(inventory_routes.router)
 
 @app.get('/')
 def read_root():
