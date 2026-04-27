@@ -1,10 +1,10 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
 from app.inventory.models import Product
-from app.sales import models, schemas
+from app.sales import models, schema
 
 
-def create_sale(db: Session, sale: schemas.SaleCreate):
+def create_sale(db: Session, sale: schema.SaleCreate):
     product = db.query(Product).filter(Product.id == sale.product_id).first()
 
     if not product:

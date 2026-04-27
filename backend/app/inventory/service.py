@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
-from app.inventory import models, schemas
+from app.inventory import models, schema
 
-def create_product(db: Session, product: schemas.ProductCreate):
+def create_product(db: Session, product: schema.ProductCreate):
     existing = db.query(models.Product).filter(models.Product.sku == product.sku).first()
     if existing:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Product with this SKU already exists")
@@ -22,7 +22,7 @@ def get_product(db: Session, product_id: int):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Product not found")
     return product
 
-def update_product(db: Session, product_id: int, product_update: schemas.ProductUpdate):
+def update_product(db: Session, product_id: int, product_update: schema.ProductUpdate):
     product = get_product(db, product_id)
     for key, value in product_update.model_dump(exclude_unset=True).items():
         setattr(product, key, value)

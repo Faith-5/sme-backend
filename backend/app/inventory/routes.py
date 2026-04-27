@@ -3,10 +3,10 @@ from sqlalchemy.orm import Session
 from app.db.database import get_db
 from app.inventory import schema, service
 from app.api.dependencies.auth import get_current_user, require_role
-from app.schemas import UserRole
+from app.schemas.user_schema import UserRole
 
 router = APIRouter(
-    prefix="api/v1/inventory",
+    prefix="/api/v1/inventory",
     tags=["Inventory"]
 )
 
