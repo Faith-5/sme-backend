@@ -3,7 +3,6 @@ from app.db.database import engine
 from app.db import models
 from app.routes import auth_routes
 
-# CREATE new tables from your current models
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(

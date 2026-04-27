@@ -1,6 +1,13 @@
 from pydantic import BaseModel, EmailStr, Field, field_validator
-from typing import Optional
+from uuid import UUID
+from enum import Enum
 import re
+
+class UserRole(str, Enum):
+    ADMIN = "admin"
+    BUSINESS_OWNER = "business_owner"
+    STAFF = "staff"
+    ACCOUNTANT = "accountant"
 
 class UserCreate(BaseModel):
     name: str = Field(..., min_length=1, max_length=100, description="User's full name")
@@ -59,12 +66,12 @@ class UserLogin(BaseModel):
     password: str = Field(..., min_length=1, description="Password")
 
 class UserResponse(BaseModel):
-    id: str
+    id: UUID
     name: str
     email: EmailStr
     phone_number: str
     business_name: str
-    role: str
+    role: UserRole
     status: str
 
     class Config:

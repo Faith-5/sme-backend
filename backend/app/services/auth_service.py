@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from app.db import models
-from app.schemas.user_schema import UserCreate, UserLogin, Token
+from app.schemas.user_schema import UserCreate, UserLogin, Token, UserRole
 from app.core.security import hash_password, verify_password, create_access_token
 from fastapi import HTTPException, status
 
@@ -22,7 +22,8 @@ def register_user(db: Session, user_data: UserCreate):
         email=user_data.email,
         phone_number=user_data.phone_number,
         business_name=user_data.business_name,
-        hashed_password=hashed_pwd
+        hashed_password=hashed_pwd,
+        role=UserRole.BUSINESS_OWNER
     )
 
     # 4. Save to DB
@@ -49,7 +50,7 @@ def login_user(db: Session, user_data: UserLogin):
         )
 
     # 3. Create JWT token
-    access_token = create_access_token(data={"user_id": str(user.id)})
+    access_token = create_access_token(data={"user_id": str(user.id), "role": user.role})
 
     # 4. Return token
     return Token(access_token=access_token, token_type="bearer")

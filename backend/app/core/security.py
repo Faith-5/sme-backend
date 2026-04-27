@@ -3,6 +3,7 @@ from jose import jwt
 from dotenv import load_dotenv
 import os
 from datetime import datetime, timedelta
+from fastapi import HTTPException, status
 
 load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
@@ -29,4 +30,7 @@ def decode_access_token(token: str):
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         return payload
     except Exception:
-        return None
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired token"
+        )

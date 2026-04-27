@@ -13,6 +13,6 @@ class User(Base):
     phone_number = Column(String, nullable=False)
     business_name = Column(String, nullable=False)
     hashed_password = Column(String, nullable=False)
-    role = Column(String, default="Staff")
+    role = Column(String)
     status = Column(String, default="Active")
     created_at = Column(DateTime, server_default=func.now())
